@@ -18,8 +18,8 @@ subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
 [sidebar.avatar]
 enabled = true
-local = true
-src = "img/avatar.png"
+local = false
+src = "https://i.imgur.com/qtijEaE.png"
 
 [article]
 headingAnchor = false
