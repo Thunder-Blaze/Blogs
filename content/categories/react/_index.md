@@ -1,6 +1,6 @@
 ---
-title: React
-description: Blogs related to React JS
+title: Frontent
+description: Blogs related to Frontend
 image:
 
 # Badge style
