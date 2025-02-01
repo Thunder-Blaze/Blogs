@@ -18,7 +18,7 @@ subtitle = "Some place for Myself to write some things"
 
 [sidebar.avatar]
 enabled = true
-local = false
+local = true
 src = "img/avatar.png"
 
 [article]
