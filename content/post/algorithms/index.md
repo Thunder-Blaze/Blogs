@@ -25,9 +25,11 @@ but if we are to use fixed K digits, the Range will be limited to $(K)(N)+(K-1)$
 ### Sliding Window
 
 - *Use deque or vector when you also need to access every element while sliding*
+- **Sliding Window** for Maximum sum of K continous elements of vector *vec*
 
 ```C++
 vector<int> vec(n);
+// Take Input
 queue<int> sm;
 int sum=0;
 for (int i=0; i<n; i++){
