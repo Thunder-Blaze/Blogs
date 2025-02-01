@@ -19,7 +19,7 @@ subtitle = "Some place for Myself to write some things"
 [sidebar.avatar]
 enabled = true
 local = false
-src = "img/avatar.webp"
+src = "img/avatar.png"
 
 [article]
 headingAnchor = false
