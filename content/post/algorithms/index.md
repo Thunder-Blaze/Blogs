@@ -11,7 +11,6 @@ categories:
 tags:
     - Frontend
     - CP
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
 ## **Algorithms & Properties**
