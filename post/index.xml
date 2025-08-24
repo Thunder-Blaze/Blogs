@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ThunderBlaze's Blog</title><link>https://thunder-blaze.github.io/Blogs/post/</link><description>Recent content in Posts on ThunderBlaze's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 Aug 2025 00:17:05 +0530</lastBuildDate><atom:link href="https://thunder-blaze.github.io/Blogs/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Zafkiel - An Anilist Client</title><link>https://thunder-blaze.github.io/Blogs/p/zafkiel/</link><pubDate>Sun, 24 Aug 2025 00:17:05 +0530</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/zafkiel/</guid><description>&lt;img src="https://thunder-blaze.github.io/Blogs/p/zafkiel/cover.jpg" alt="Featured image of post Zafkiel - An Anilist Client" />&lt;h1 id="zafkiel---building-a-native-anilist-client-with-svelte-tauri-and-rust">Zafkiel - Building a Native Anilist Client with Svelte, Tauri, and Rust
+&lt;/h1>&lt;p>Over the past few months, I’ve been working on a project very close to my heart: &lt;strong>Zafkiel&lt;/strong>, a desktop anilist client built with &lt;strong>Svelte, Tauri, and Rust&lt;/strong>. The goal has always been simple yet ambitious - to create a fast, lightweight, and customizable app for browsing and tracking anime, one that feels &lt;strong>native, modern, and open to the community&lt;/strong>.&lt;/p>
+&lt;p>Zafkiel is at a stage where I can reflect on why I started it, the choices I made, and the direction it’s heading.&lt;/p>
+&lt;hr>
+&lt;h2 id="why-zafkiel">Why Zafkiel?
+&lt;/h2>&lt;p>Existing anime tracking platforms and apps are powerful, but I often found them lacking in either &lt;strong>performance, design flexibility, or openness&lt;/strong>. Many desktop clients are simply Electron wrappers, which work but can feel heavy and slow.&lt;/p>
+&lt;p>I was also inspired by the creative minds behind the creation of &lt;strong>Dantotsu&lt;/strong>, an Android application for watching anime, reading manga and light novels with &lt;strong>multi-sourcing&lt;/strong>, &lt;strong>extensions&lt;/strong> for more features, etc. Sadly it was taken down recently by DMCA but many of its forks are still there. And I also came across a cross-platform Dantotsu (&lt;strong>Dartotsu&lt;/strong>) but it was still in much development and it used flutter so the app was really slow and bad in performance.&lt;/p>
+&lt;p>That is why I decided to create my own client with the following features in mind:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Lightweight&lt;/strong> - fast startup and minimal resource usage.&lt;/li>
+&lt;li>&lt;strong>Beautiful&lt;/strong> - a modern design with multiple themes, fully customizable.&lt;/li>
+&lt;li>&lt;strong>Community Friendly&lt;/strong> - easy to modify, extend, and contribute to.&lt;/li>
+&lt;li>&lt;strong>Cross-platform&lt;/strong> - consistent performance on Linux, Windows, and macOS.&lt;/li>
+&lt;li>&lt;strong>Multi-Sourced&lt;/strong> - should have multiple sources and switching between them (&lt;em>I&amp;rsquo;ll expand on this further later&lt;/em>).&lt;/li>
+&lt;li>&lt;strong>Extensible&lt;/strong> - should provide features like extensions which can be installed or uninstalled.&lt;/li>
+&lt;/ul>
+&lt;p>That vision became &lt;strong>Zafkiel&lt;/strong> - named after Kurumi Tokisaki’s angel in &lt;em>&lt;strong>Date A Live&lt;/strong>&lt;/em> (&lt;em>My favorite character btw from this Series&lt;/em>), symbolizing control over time. It felt like the right metaphor for an app meant to give users &lt;strong>control over their anime experience&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="choosing-the-stack">Choosing the Stack
+&lt;/h2>&lt;h3 id="frontend-svelte--shadcn--tweakcn">Frontend: Svelte + Shadcn &amp;amp; Tweakcn
+&lt;/h3>&lt;p>I chose &lt;strong>Svelte&lt;/strong> for the frontend because of its &lt;strong>speed, simplicity, reactivity, and developer experience&lt;/strong>. Unlike heavier frameworks, Svelte compiles away much of the overhead, leaving a lean and efficient app. This makes UI development &lt;strong>faster and more intuitive&lt;/strong>, letting me focus on design and user experience.&lt;/p>
+&lt;p>To bring flexibility to the design, I integrated &lt;strong>Shadcn&lt;/strong> &amp;amp; &lt;strong>Tweakcn&lt;/strong> (&lt;em>Shadcn Themes&lt;/em>), using which I enabled &lt;strong>multi-theme functionality&lt;/strong> and &lt;strong>consistent design&lt;/strong>. With it, users can seamlessly switch between themes, creating a personalized experience without bloated complexity in the codebase.&lt;/p>
+&lt;h3 id="backend-rust--tauri">Backend: Rust + Tauri
+&lt;/h3>&lt;p>For the backend, I went with &lt;strong>Rust&lt;/strong>. Rust not only ensures &lt;strong>safety and performance&lt;/strong>, but it also makes Zafkiel highly modular. The backend is structured in a way that keeps each part of the logic isolated, easy to read, and easy to extend.&lt;/p>
+&lt;p>This modularity has another major advantage: &lt;strong>contributing is accessible to others&lt;/strong>. Developers can dive into specific parts of the codebase without needing to understand everything at once. Whether it’s improving caching, adding API integrations, or refining error handling, contributions are straightforward.&lt;/p>
+&lt;p>With &lt;strong>Tauri&lt;/strong> acting as the bridge between the frontend and backend, the result is a &lt;strong>native cross-platform application&lt;/strong> that consumes only a fraction of the resources of an Electron-based app, while maintaining strong security guarantees.&lt;/p>
+&lt;h4 id="multi-sourced-feature">Multi Sourced Feature
+&lt;/h4>&lt;p>This is yet to be implemented, I am planning to implement this along with the extensions. &lt;strong>Multi-Sourced&lt;/strong> refers to the ability to choose between the providers of Anime/Manga. You must&amp;rsquo;ve heard of websites for watching anime like &lt;em>hianime&lt;/em>, &lt;em>aniwatch&lt;/em>, etc and even &lt;em>torrents&lt;/em> too. I want to provide the user the ability to choose which source to watch from because of various factors:&lt;/p>
+&lt;ul>
+&lt;li>It is not necessary for the site I am using to be available in the user&amp;rsquo;s region.&lt;/li>
+&lt;li>Some sites have reduced quality but lower size while other offers higher sizes but high quality.&lt;/li>
+&lt;li>There&amp;rsquo;s also the thing called hard subtitles (embedded in video) and soft subtitles (embedded in the file like &lt;code>mkv&lt;/code> but not in the video).&lt;/li>
+&lt;/ul>
+&lt;h4 id="extensions">Extensions
+&lt;/h4>&lt;p>This multi-sourcing feature is planned to be enabled using these so called extensions. I want to provide each site as optional extensions as in Dantotsu. But extensions won&amp;rsquo;t stop there, they can provide more features such as torrenting, downloading, cli integrations and much more. I&amp;rsquo;ll be keeping the repository separate though because of &lt;strong>DMCA&lt;/strong>. More and more sites can be added and easily integrated as extensions as all of them will follow the same structure and responses.&lt;/p>
+&lt;hr>
+&lt;h2 id="current-state">&lt;strong>Current State&lt;/strong>
+&lt;/h2>&lt;p>At the moment, Zafkiel is still in &lt;strong>basic development&lt;/strong>.&lt;br>
+Some core features are working, but it’s far from stable or feature-complete.&lt;/p>
+&lt;p>Right now, I’m focusing on:&lt;/p>
+&lt;ul>
+&lt;li>Building out the &lt;strong>core UI&lt;/strong> with Svelte and Tailwind.&lt;/li>
+&lt;li>Structuring the &lt;strong>Rust backend&lt;/strong> for modularity and clean APIs (&lt;em>need to rework on this&lt;/em>).&lt;/li>
+&lt;li>Refining how I use &lt;strong>TanStack Query&lt;/strong> for AniList API calls.&lt;/li>
+&lt;/ul>
+&lt;p>It’s not something I can use daily yet, but the foundation is being laid carefully.&lt;br>
+My approach is &lt;strong>slow but steady&lt;/strong> - making sure I get the architecture right before layering on more features.&lt;/p>
+&lt;hr>
+&lt;h2 id="looking-ahead">&lt;strong>Looking Ahead&lt;/strong>
+&lt;/h2>&lt;p>The roadmap for Zafkiel includes:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Polished UI/UX&lt;/strong> with multiple themes and smooth transitions (&lt;em>Yes, it needs more work&lt;/em>).&lt;/li>
+&lt;li>&lt;strong>Cross-platform support&lt;/strong> to ensure consistency on Linux, Windows, and macOS (&lt;em>Even android support is coming soon&lt;/em>).&lt;/li>
+&lt;li>&lt;strong>Multi-source streaming and reading support&lt;/strong> using extensions and also torrenting support.&lt;/li>
+&lt;li>&lt;strong>Extensibility&lt;/strong> so contributors can add new features or integrations easily.&lt;/li>
+&lt;li>&lt;strong>More components&lt;/strong> for streaming anime, reading manga, reading light novels, etc.&lt;/li>
+&lt;li>&lt;strong>Documentation site&lt;/strong> (&lt;em>Yes, this is very important for contributors and even for users&lt;/em>)&lt;/li>
+&lt;/ul>
+&lt;p>I’m not rushing this project - the goal is to &lt;strong>build it right, not just fast&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="conclusion">&lt;strong>Conclusion&lt;/strong>
+&lt;/h2>&lt;p>Zafkiel is still a work in progress and there is a long way to go before it goes into production, but it represents my vision of what an anilist client should be: &lt;strong>lightweight, customizable, and faster&lt;/strong>.&lt;/p>
+&lt;p>With &lt;strong>Svelte&lt;/strong> powering the UI, &lt;strong>Tweakcn&lt;/strong> providing theming flexibility, &lt;strong>TanStack Query&lt;/strong> handling data-fetching experiments, and a &lt;strong>modular Rust backend&lt;/strong> ensuring performance and stability, Zafkiel is slowly but surely becoming the client I’ve always wanted.&lt;/p>
+&lt;p>It’s not production-ready yet, but the journey has only just begun - and I’m excited to see where it goes from here.&lt;/p>
+&lt;hr></description></item><item><title>Getting Started with Svelte 5 (and Why You Might Not Need React)</title><link>https://thunder-blaze.github.io/Blogs/p/svelte-5-vs-react/</link><pubDate>Sun, 24 Aug 2025 00:16:00 +0530</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/svelte-5-vs-react/</guid><description>&lt;img src="https://thunder-blaze.github.io/Blogs/p/svelte-5-vs-react/cover.jpg" alt="Featured image of post Getting Started with Svelte 5 (and Why You Might Not Need React)" />&lt;h1 id="getting-started-with-svelte-5-why-it-feels-different-from-react">Getting Started with Svelte 5: Why It Feels Different from React
+&lt;/h1>&lt;p>For most developers, the path into modern frontend development goes something like this: you learn a little HTML and CSS, sprinkle in some JavaScript, then get told that &lt;em>“if you want to be taken seriously, you need React.”&lt;/em>&lt;/p>
+&lt;p>React has become the default. Its component-based structure, hook system, and virtual DOM reconciliation process have shaped the way millions of developers think about web interfaces. But that dominance also means many developers assume React’s structure is simply &lt;em>how frontend frameworks work&lt;/em>.&lt;/p>
+&lt;p>Svelte - especially in its latest version, &lt;strong>Svelte 5&lt;/strong> - politely disagrees. Its structure, reactivity model, and approach to state management are designed around a compiler-first philosophy rather than a runtime-first philosophy. To really appreciate why that matters, let’s unpack what these frameworks are actually made of.&lt;/p>
+&lt;hr>
+&lt;h2 id="the-structure-of-a-react-application">The Structure of a React Application
+&lt;/h2>&lt;p>In React, an application is a tree of &lt;strong>components&lt;/strong>, each represented by a function (or class, historically). Components return a description of UI in JSX, which React turns into a virtual DOM tree. Whenever state changes, React re-renders the component, compares the new virtual DOM with the old one, and applies minimal updates to the real DOM.&lt;/p>
+&lt;p>This means React’s structure has three major layers:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Component Functions&lt;/strong> - the building blocks, each describing what the UI should look like.&lt;/li>
+&lt;li>&lt;strong>Hooks and State Management&lt;/strong> - &lt;code>useState&lt;/code>, &lt;code>useReducer&lt;/code>, &lt;code>useContext&lt;/code>, and a host of third-party libraries that hold and manage application state.&lt;/li>
+&lt;li>&lt;strong>Runtime Reconciliation&lt;/strong> - the virtual DOM diffing algorithm that determines how to update the actual DOM based on state changes.&lt;/li>
+&lt;/ol>
+&lt;p>The advantage of this structure is familiarity and flexibility: every piece is declarative, and React handles the mechanics of change. The disadvantage is weight. Every app ships React itself plus the runtime that makes reconciliation work, even if you are only building a simple counter.&lt;/p>
+&lt;hr>
+&lt;h2 id="the-structure-of-a-svelte-5-application">The Structure of a Svelte 5 Application
+&lt;/h2>&lt;p>Svelte flips the model. Instead of carrying a runtime into the browser, &lt;strong>Svelte compiles components into plain JavaScript at build time&lt;/strong>. This alters the structure of an application in a fundamental way:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Components&lt;/strong> are still the unit of composition, but instead of returning virtual DOM, they are compiled into direct DOM operations. When you declare &lt;code>&amp;lt;button&amp;gt;{count}&amp;lt;/button&amp;gt;&lt;/code>, the compiler generates the exact DOM update instructions needed to increment the text when &lt;code>count&lt;/code> changes.&lt;/li>
+&lt;li>&lt;strong>Runes&lt;/strong> replace hooks. A rune like &lt;code>$state(0)&lt;/code> declares state. A rune like &lt;code>$derived(expr)&lt;/code> computes a value from other state. &lt;code>$effect(() =&amp;gt; { ... })&lt;/code> defines what React would call a “side effect” - code that runs in response to data changes but doesn’t itself produce data for the UI. Importantly, because runes are compile-time hints, the compiler wires dependencies automatically.&lt;/li>
+&lt;li>&lt;strong>Reactivity&lt;/strong> is not a runtime guessing game. In React, you declare dependencies manually in &lt;code>useEffect&lt;/code> or &lt;code>useMemo&lt;/code>. Forgetting or mis-declaring them is a common source of bugs. In Svelte, reactivity is &lt;strong>fine-grained and explicit&lt;/strong>: if &lt;code>count&lt;/code> is used inside &lt;code>$derived&lt;/code> or &lt;code>$effect&lt;/code>, the compiler knows exactly when to update.&lt;/li>
+&lt;/ol>
+&lt;p>This structure means a Svelte 5 application has no virtual DOM, no reconciliation layer, and significantly less runtime code. What ships to the browser is essentially optimized vanilla JavaScript customized for your component tree.&lt;/p>
+&lt;hr>
+&lt;h2 id="what-is-reactivity-">What is Reactivity ?
+&lt;/h2>&lt;p>The term &lt;strong>“reactivity”&lt;/strong> describes how a framework updates the UI when data changes.&lt;/p>
+&lt;p>In &lt;strong>React&lt;/strong>, reactivity is powered by state and re-renders. You call &lt;code>setState&lt;/code>, React re-runs the component, then the Virtual DOM decides what needs updating. This works well, but every change re-executes the component function, even if only one value changed.&lt;/p>
+&lt;p>In &lt;strong>Svelte&lt;/strong>, reactivity is built into the compiler. Assigning to a variable (&lt;code>count++&lt;/code>) directly updates only the DOM nodes that depend on it. No Virtual DOM, no component re-runs - just precise updates.&lt;/p>
+&lt;p>The difference is subtle but important: React reactivity is &lt;strong>runtime-driven&lt;/strong>, while Svelte reactivity is &lt;strong>compile-time optimized&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="what-side-effects-actually-mean">What Side Effects Actually Mean
+&lt;/h2>&lt;p>The phrase &lt;strong>“side effect”&lt;/strong> gets thrown around casually in frontend development, but let’s pin it down. A &lt;em>side effect&lt;/em> is any action your code performs that reaches outside of its own scope and alters something external. Examples include logging to the console, updating localStorage, starting an interval timer, or making a network request.&lt;/p>
+&lt;p>In React, side effects live in &lt;code>useEffect&lt;/code>. You declare dependencies, React runs the effect when they change, and you may return a cleanup function. In practice, this can be error-prone: forgetting dependencies leads to stale values, while adding too many creates unnecessary re-runs.&lt;/p>
+&lt;p>In Svelte 5, side effects live inside &lt;code>$effect&lt;/code>. The difference is subtle but important: the compiler analyzes your effect and automatically tracks which values it depends on. You do not manually declare dependencies, so there is less room for mistakes. Moreover, because &lt;code>$effect&lt;/code> is reserved only for side effects, not computations, it reduces the temptation to use it as a catch-all. Computed values belong in &lt;code>$derived&lt;/code>, keeping data transformations pure and effects truly external.&lt;/p>
+&lt;hr>
+&lt;h2 id="state-and-data-across-the-app">State and Data Across the App
+&lt;/h2>&lt;p>Both frameworks need a way to manage state across components. In React, this typically means &lt;code>useContext&lt;/code> or an external state library like Redux, Zustand, etc. In Svelte, the answer is &lt;strong>stores&lt;/strong>.&lt;/p>
+&lt;p>A store is simply a reactive object with a &lt;code>subscribe&lt;/code> method. Svelte provides a small set out of the box:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>writable&lt;/code>&lt;/strong>: holds a value that can be updated.&lt;/li>
+&lt;li>&lt;strong>&lt;code>readable&lt;/code>&lt;/strong>: holds a value but can only be updated internally (useful for derived or system state).&lt;/li>
+&lt;li>&lt;strong>&lt;code>derived&lt;/code>&lt;/strong>: computes a new store based on others.&lt;/li>
+&lt;/ul>
+&lt;p>The compiler adds sugar: prefixing a store variable with &lt;code>$&lt;/code> inside a component automatically subscribes and unsubscribes it. That’s why you can write &lt;code>{$count}&lt;/code> inside a template and get the live value.&lt;/p>
+&lt;p>The line between runes and stores is clear: runes are for &lt;em>local component state&lt;/em>, stores are for &lt;em>shared global or cross-component state&lt;/em>.&lt;/p>
+&lt;hr>
+&lt;h2 id="the-role-of-data-loading">The Role of Data Loading
+&lt;/h2>&lt;p>One area where SvelteKit - the application framework around Svelte - diverges sharply from React’s ecosystem is &lt;strong>data loading&lt;/strong>. In React, data loading conventions vary by framework. Next.js, for example, uses server components, route handlers, and &lt;code>getServerSideProps&lt;/code> or &lt;code>getStaticProps&lt;/code> (depending on the version you’re working with). It’s powerful but can feel fragmented.&lt;/p>
+&lt;p>SvelteKit simplifies this with a single concept: the &lt;strong>&lt;code>load&lt;/code> function&lt;/strong>. Every route or layout can export a &lt;code>load&lt;/code> function, which fetches or computes data before rendering. Crucially, there are two flavors:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>+page.ts&lt;/code> / &lt;code>+layout.ts&lt;/code>&lt;/strong>: runs on both client and server, perfect for public data or anything that must survive client-side navigation.&lt;/li>
+&lt;li>&lt;strong>&lt;code>+page.server.ts&lt;/code> / &lt;code>+layout.server.ts&lt;/code>&lt;/strong>: runs only on the server, ideal for accessing databases, filesystems, or secret environment variables.&lt;/li>
+&lt;/ul>
+&lt;p>This clear separation removes guesswork. When you read a SvelteKit codebase, you know exactly what runs on the server and what may run in the browser.&lt;/p>
+&lt;hr>
+&lt;h2 id="a-practical-comparison">A Practical Comparison
+&lt;/h2>&lt;p>Let’s compare two mental models.&lt;/p>
+&lt;p>&lt;strong>React’s Model&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Structure: components return virtual DOM, React runtime diffs and updates real DOM.&lt;/li>
+&lt;li>State: hooks manage local state; external libraries manage global state.&lt;/li>
+&lt;li>Side effects: &lt;code>useEffect&lt;/code> runs external code, with manually declared dependencies.&lt;/li>
+&lt;li>Data loading: depends on framework, with patterns that vary between Next.js, Remix, and others.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Svelte 5’s Model&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Structure: components compile into direct DOM operations; no runtime reconciliation layer.&lt;/li>
+&lt;li>State: runes (&lt;code>$state&lt;/code>, &lt;code>$derived&lt;/code>, &lt;code>$effect&lt;/code>) handle local reactive state and side effects.&lt;/li>
+&lt;li>Shared state: stores (&lt;code>writable&lt;/code>, &lt;code>readable&lt;/code>, &lt;code>derived&lt;/code>) provide reactive values across components.&lt;/li>
+&lt;li>Data loading: SvelteKit’s &lt;code>load&lt;/code> functions, explicit and scoped to routes.&lt;/li>
+&lt;/ul>
+&lt;p>This difference in structure is not just academic. It changes the weight of the code you ship, the likelihood of bugs from dependency mismatches, and the mental overhead required to understand what your app is doing at any given time.&lt;/p>
+&lt;hr>
+&lt;h2 id="why-this-matters">Why This Matters
+&lt;/h2>&lt;p>Choosing between React and Svelte is not about loyalty, it’s about trade-offs. &lt;em>&lt;strong>React&lt;/strong>&lt;/em> gives you the safety of an enormous ecosystem, countless libraries, and a familiar structure used by millions of developers. &lt;em>&lt;strong>Svelte 5&lt;/strong>&lt;/em> offers a compiler-driven model that produces smaller bundles, faster updates, and code that directly mirrors your mental model of reactivity.&lt;/p>
+&lt;p>If you want predictability, React is the well-traveled highway. If you want efficiency, simplicity, and a more expressive syntax, Svelte is the smaller, faster road that feels almost suspiciously smooth.&lt;/p>
+&lt;p>The real takeaway is not that one will “kill” the other - React’s ecosystem is too large for that. The takeaway is that Svelte offers a different structure, one where reactivity is explicit, side effects are cleanly separated, and the compiler takes on more of the work so the browser can do less.&lt;/p>
+&lt;hr></description></item><item><title>Algorithms</title><link>https://thunder-blaze.github.io/Blogs/p/algorithms/</link><pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/algorithms/</guid><description>&lt;img src="https://thunder-blaze.github.io/Blogs/p/algorithms/cover.jpg" alt="Featured image of post Algorithms" />&lt;h2 id="algorithms--properties">&lt;strong>Algorithms &amp;amp; Properties&lt;/strong>
+&lt;/h2>&lt;h3 id="possible-sum-of-k-distinct-integers-between-1-and-n">Possible sum of K distinct integers between 1 and N
+&lt;/h3>&lt;p>let the sum be S,&lt;br>
+we can form all numbers till $\dfrac{N(N+1)}{2}$&lt;br>
+but if we are to use fixed K digits, the Range will be limited to $(K)(N)+(K-1)$&lt;/p>
+&lt;h3 id="sliding-window">Sliding Window
+&lt;/h3>&lt;ul>
+&lt;li>&lt;em>Use deque or vector when you also need to access every element while sliding&lt;/em>&lt;/li>
+&lt;li>&lt;strong>Sliding Window&lt;/strong> for Maximum sum of K continous elements of vector &lt;em>vec&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C++" data-lang="C++">&lt;span class="line">&lt;span class="cl">&lt;span class="n">vector&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">vec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Take Input
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">queue&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">sm&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="n">sum&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sum&lt;/span>&lt;span class="o">-=&lt;/span>&lt;span class="n">sm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">vec&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sum&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">vec&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ans&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sum&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ans&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
+>Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>Markdown Syntax Guide</title><link>https://thunder-blaze.github.io/Blogs/p/markdown-syntax-guide/</link><pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/markdown-syntax-guide/</guid><description>&lt;p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p>
+&lt;h2 id="headings">Headings
+&lt;/h2>&lt;p>The following HTML &lt;code>&amp;lt;h1&amp;gt;&lt;/code>—&lt;code>&amp;lt;h6&amp;gt;&lt;/code> elements represent six levels of section headings. &lt;code>&amp;lt;h1&amp;gt;&lt;/code> is the highest section level while &lt;code>&amp;lt;h6&amp;gt;&lt;/code> is the lowest.&lt;/p>
+&lt;h1 id="h1">H1
+&lt;/h1>&lt;h2 id="h2">H2
+&lt;/h2>&lt;h3 id="h3">H3
+&lt;/h3>&lt;h4 id="h4">H4
+&lt;/h4>&lt;h5 id="h5">H5
+&lt;/h5>&lt;h6 id="h6">H6
+&lt;/h6>&lt;h2 id="paragraph">Paragraph
+&lt;/h2>&lt;p>Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.&lt;/p>
+&lt;p>Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.&lt;/p>
+&lt;h2 id="blockquotes">Blockquotes
+&lt;/h2>&lt;p>The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a &lt;code>footer&lt;/code> or &lt;code>cite&lt;/code> element, and optionally with in-line changes such as annotations and abbreviations.&lt;/p>
+&lt;h3 id="blockquote-without-attribution">Blockquote without attribution
+&lt;/h3>&lt;blockquote>
+&lt;p>Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;strong>Note&lt;/strong> that you can use &lt;em>Markdown syntax&lt;/em> within a blockquote.&lt;/p>&lt;/blockquote>
+&lt;h3 id="blockquote-with-attribution">Blockquote with attribution
+&lt;/h3>&lt;blockquote>
+&lt;p>Don&amp;rsquo;t communicate by sharing memory, share memory by communicating.&lt;br>
+— &lt;cite>Rob Pike&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/cite>&lt;/p>&lt;/blockquote>
+&lt;h2 id="tables">Tables
+&lt;/h2>&lt;p>Tables aren&amp;rsquo;t part of the core Markdown spec, but Hugo supports supports them out-of-the-box.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Age&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Bob&lt;/td>
+&lt;td>27&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Alice&lt;/td>
+&lt;td>23&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="inline-markdown-within-tables">Inline Markdown within tables
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Italics&lt;/th>
+&lt;th>Bold&lt;/th>
+&lt;th>Code&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>italics&lt;/em>&lt;/td>
+&lt;td>&lt;strong>bold&lt;/strong>&lt;/td>
+&lt;td>&lt;code>code&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;th>D&lt;/th>
+&lt;th>E&lt;/th>
+&lt;th>F&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/td>
+&lt;td>Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex.&lt;/td>
+&lt;td>Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus&lt;/td>
+&lt;td>Proin sit amet velit nec enim imperdiet vehicula.&lt;/td>
+&lt;td>Ut bibendum vestibulum quam, eu egestas turpis gravida nec&lt;/td>
+&lt;td>Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="code-blocks">Code Blocks
+&lt;/h2>&lt;h3 id="code-block-with-backticks">Code block with backticks
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!doctype html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Example HTML5 Document&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Test&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="code-block-indented-with-four-spaces">Code block indented with four spaces
+&lt;/h3>&lt;pre>&lt;code>&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+&amp;lt;title&amp;gt;Example HTML5 Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;p&amp;gt;Test&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;h3 id="diff-code-block">Diff code block
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">[dependencies.bevy]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git = &amp;#34;https://github.com/bevyengine/bevy&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- features = [&amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ features = [&amp;#34;jpeg&amp;#34;, &amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="one-line-code-block">One line code block
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>A paragraph&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="list-types">List Types
+&lt;/h2>&lt;h3 id="ordered-list">Ordered List
+&lt;/h3>&lt;ol>
+&lt;li>First item&lt;/li>
+&lt;li>Second item&lt;/li>
+&lt;li>Third item&lt;/li>
+&lt;/ol>
+&lt;h3 id="unordered-list">Unordered List
+&lt;/h3>&lt;ul>
+&lt;li>List item&lt;/li>
+&lt;li>Another item&lt;/li>
+&lt;li>And another item&lt;/li>
+&lt;/ul>
+&lt;h3 id="nested-list">Nested list
+&lt;/h3>&lt;ul>
+&lt;li>Fruit
+&lt;ul>
+&lt;li>Apple&lt;/li>
+&lt;li>Orange&lt;/li>
+&lt;li>Banana&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Dairy
+&lt;ul>
+&lt;li>Milk&lt;/li>
+&lt;li>Cheese&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="other-elements--abbr-sub-sup-kbd-mark">Other Elements — abbr, sub, sup, kbd, mark
+&lt;/h2>&lt;p>&lt;abbr title="Graphics Interchange Format">GIF&lt;/abbr> is a bitmap image format.&lt;/p>
+&lt;p>H&lt;sub>2&lt;/sub>O&lt;/p>
+&lt;p>X&lt;sup>n&lt;/sup> + Y&lt;sup>n&lt;/sup> = Z&lt;sup>n&lt;/sup>&lt;/p>
+&lt;p>Press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>ALT&lt;/kbd> + &lt;kbd>Delete&lt;/kbd> to end the session.&lt;/p>
+&lt;p>Most &lt;mark>salamanders&lt;/mark> are nocturnal, and hunt for insects, worms, and other small creatures.&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>The above quote is excerpted from Rob Pike&amp;rsquo;s &lt;a class="link" href="https://www.youtube.com/watch?v=PAAkCSZUG1c" target="_blank" rel="noopener"
+>talk&lt;/a> during Gopherfest, November 18, 2015.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Shortcodes</title><link>https://thunder-blaze.github.io/Blogs/p/shortcodes/</link><pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/shortcodes/</guid><description>&lt;img src="https://thunder-blaze.github.io/Blogs/p/shortcodes/cover.jpg" alt="Featured image of post Shortcodes" />&lt;p>For more details, check out the &lt;a class="link" href="https://stack.jimmycai.com/writing/shortcodes" target="_blank" rel="noopener"
+>documentation&lt;/a>.&lt;/p>
+&lt;h2 id="bilibili-video">Bilibili video
+&lt;/h2>
+&lt;div class="video-wrapper">
+&lt;iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1d4411N7zD"
+scrolling="no"
+frameborder="no"
+framespacing="0"
+allowfullscreen="true"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h2 id="tencent-video">Tencent video
+&lt;/h2>
+&lt;div class="video-wrapper">
+&lt;iframe src="https://v.qq.com/txp/iframe/player.html?vid=g0014r3khdw&amp;auto=0"
+scrolling="no"
+frameborder="no"
+framespacing="0"
+allowfullscreen="true"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h2 id="youtube-video">YouTube video
+&lt;/h2>&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/0qwALOOvUik"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h2 id="generic-video-file">Generic video file
+&lt;/h2>&lt;div class="video-wrapper">
+&lt;video
+controls
+src="https://www.w3schools.com/tags/movie.mp4"
+>
+&lt;p>
+Your browser doesn't support HTML5 video. Here is a
+&lt;a href="https://www.w3schools.com/tags/movie.mp4">link to the video&lt;/a> instead.
+&lt;/p>
+&lt;/video>
+&lt;/div>
+&lt;h2 id="gist">Gist
+&lt;/h2>&lt;script src="https://gist.github.com/CaiJimmy/e2751a943de10b2a5b3a8a6c2120cb86.js">&lt;/script>
+&lt;h2 id="gitlab">GitLab
+&lt;/h2>&lt;script
+type="application/javascript"
+src="https://gitlab.com/-/snippets/2589724.js"
+>&lt;/script>
+&lt;h2 id="quote">Quote
+&lt;/h2>&lt;blockquote>
+&lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p>&lt;span class="cite">&lt;span>― &lt;/span>&lt;span>A famous person, &lt;/span>&lt;a href="https://en.wikipedia.org/wiki/Book">&lt;cite>The book they wrote&lt;/cite>&lt;/a>&lt;/span>&lt;/blockquote>
+&lt;hr>
+&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@codioful" target="_blank" rel="noopener"
+>Codioful&lt;/a> on &lt;a class="link" href="https://unsplash.com/photos/WDSN62Qdxuk" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>Math Typesetting</title><link>https://thunder-blaze.github.io/Blogs/p/math-typesetting/</link><pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/math-typesetting/</guid><description>&lt;p>Stack has built-in support for math typesetting using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
+>KaTeX&lt;/a>.&lt;/p>
+&lt;p>&lt;strong>It&amp;rsquo;s not enabled by default side-wide,&lt;/strong> but you can enable it for individual posts by adding &lt;code>math: true&lt;/code> to the front matter. Or you can enable it side-wide by adding &lt;code>math = true&lt;/code> to the &lt;code>params.article&lt;/code> section in &lt;code>config.toml&lt;/code>.&lt;/p>
+&lt;h2 id="inline-math">Inline math
+&lt;/h2>&lt;p>This is an inline mathematical expression: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">$\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="block-math">Block math
+&lt;/h2>$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+$$&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>$$
+f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+$$&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Image gallery</title><link>https://thunder-blaze.github.io/Blogs/p/image-gallery/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://thunder-blaze.github.io/Blogs/p/image-gallery/</guid><description>&lt;img src="https://thunder-blaze.github.io/Blogs/p/image-gallery/2.jpg" alt="Featured image of post Image gallery" />&lt;p>Hugo theme Stack supports the creation of interactive image galleries using Markdown. It&amp;rsquo;s powered by &lt;a class="link" href="https://photoswipe.com/" target="_blank" rel="noopener"
+>PhotoSwipe&lt;/a> and its syntax was inspired by &lt;a class="link" href="https://typlog.com/" target="_blank" rel="noopener"
+>Typlog&lt;/a>.&lt;/p>
+&lt;p>To use this feature, the image must be in the same directory as the Markdown file, as it uses Hugo&amp;rsquo;s page bundle feature to read the dimensions of the image. &lt;strong>External images are not supported.&lt;/strong>&lt;/p>
+&lt;h2 id="syntax">Syntax
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">![&lt;span class="nt">Image 1&lt;/span>](&lt;span class="na">1.jpg&lt;/span>) ![&lt;span class="nt">Image 2&lt;/span>](&lt;span class="na">2.jpg&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="result">Result
+&lt;/h2>&lt;p>&lt;img src="https://thunder-blaze.github.io/Blogs/p/image-gallery/1.jpg"
+width="2000"
+height="1400"
+srcset="https://thunder-blaze.github.io/Blogs/p/image-gallery/1_hu_811b671457ffff1f.jpg 480w, https://thunder-blaze.github.io/Blogs/p/image-gallery/1_hu_c74af69dd7c1dcda.jpg 1024w"
+loading="lazy"
+alt="Image 1"
+class="gallery-image"
+data-flex-grow="142"
+data-flex-basis="342px"
+> &lt;img src="https://thunder-blaze.github.io/Blogs/p/image-gallery/2.jpg"
+width="1500"
+height="2250"
+srcset="https://thunder-blaze.github.io/Blogs/p/image-gallery/2_hu_42f6436cb1637265.jpg 480w, https://thunder-blaze.github.io/Blogs/p/image-gallery/2_hu_27862a49608da0d9.jpg 1024w"
+loading="lazy"
+alt="Image 2"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@mymind" target="_blank" rel="noopener"
+>mymind&lt;/a> and &lt;a class="link" href="https://unsplash.com/@lukechesser" target="_blank" rel="noopener"
+>Luke Chesser&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item></channel></rss>
