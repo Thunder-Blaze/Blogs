@@ -4,14 +4,14 @@ description: Why its time for JPEG to go.
 date: 2025-08-25 00:00:00+0000
 slug: jpeg-jxl
 math: true
-categories: 
+categories:
     - tech
 tags:
     - tech
 ---
 
-
 # 1	My Experience with JPEG
+
 ## 1.1	Introduction
 JPEG, the image encoding format that has been the standard for a very long time, has its own shortcomings, including the lack of a lossless format for a long time, which was **fixed** in J2K, but not along with all its other shortcomings. Neither was J2K widely adopted.
 
