@@ -1,6 +1,6 @@
 ---
-title: Building Zafkiel - An Anime Client with Svelte, Tauri, and Rust
-description: My journey building Zafkiel, a lightweight and customizable anime client with Svelte, Shadcn, Tauri, and Rust.
+title: Zafkiel - An Anilist Client
+description: My journey building Zafkiel, a lightweight and customizable anilist client with Svelte, Shadcn, Tauri, and Rust.
 slug: zafkiel
 date: 2025-08-24 00:17:05+0530
 image: cover.jpg
@@ -16,9 +16,9 @@ tags:
     - Shadcn
 ---
 
-# Zafkiel - Building a Native Anime Client with Svelte, Tauri, and Rust
+# Zafkiel - Building a Native Anilist Client with Svelte, Tauri, and Rust
 
-Over the past few months, I’ve been working on a project very close to my heart: **Zafkiel**, a desktop anime client built with **Svelte, Tauri, and Rust**. The goal has always been simple yet ambitious - to create a fast, lightweight, and customizable app for browsing and tracking anime, one that feels **native, modern, and open to the community**.
+Over the past few months, I’ve been working on a project very close to my heart: **Zafkiel**, a desktop anilist client built with **Svelte, Tauri, and Rust**. The goal has always been simple yet ambitious - to create a fast, lightweight, and customizable app for browsing and tracking anime, one that feels **native, modern, and open to the community**.
 
 Zafkiel is at a stage where I can reflect on why I started it, the choices I made, and the direction it’s heading.
 
@@ -106,7 +106,7 @@ I’m not rushing this project - the goal is to **build it right, not just fast*
 
 ## **Conclusion**
 
-Zafkiel is still a work in progress and there is a long way to go before it goes into production, but it represents my vision of what an anime client should be: **lightweight, customizable, and faster**.  
+Zafkiel is still a work in progress and there is a long way to go before it goes into production, but it represents my vision of what an anilist client should be: **lightweight, customizable, and faster**.  
 
 With **Svelte** powering the UI, **Tweakcn** providing theming flexibility, **TanStack Query** handling data-fetching experiments, and a **modular Rust backend** ensuring performance and stability, Zafkiel is slowly but surely becoming the client I’ve always wanted.  
 
